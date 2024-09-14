@@ -1,0 +1,93 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id           String  @id @default(cuid()) @map("id")
+    email        String  @unique @map("email")
+    fullName     String  @map("full_name")
+    picture      String? @map("picture")
+    isDeleted    Boolean @default(false) @map("is_deleted")
+    isVerified   Boolean @default(false) @map("is_verified")
+
+    passwordHash String  @map("password_hash")
+    salt         String  @map("salt")
+
+    apps App[] 
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("user")
+}
+
+model App {
+    id   String @id @default(cuid()) @map("id")
+    name String @unique @map("name")
+
+    secret        String   @unique @map("secret")
+    redirectUris  String[] @map("redirect_uris")
+    origins       String[] @map("origin")
+    allowedScopes String[] @map("allowed_scopes")
+    clientId      String   @unique @map("client_id")
+    isTrusted     Boolean  @default(false) @map("is_trusted")
+
+    state APP_STATE @default(ACTIVE)
+
+    consentScreen ConsentScreen?
+    tokens TokenAppMapping[]
+
+    owner User @relation(fields: [ownerId], references: [id])
+    ownerId String @unique @map("owner_id")
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("app")
+}
+
+model ConsentScreen {
+    id   String @id @default(cuid()) @map("id")
+    name String @unique @map("name")
+    logo String @map("logo")
+
+    title       String @map("title")
+    description String @map("description")
+    developerEmail String? @map("developer_email")
+    appAddress  String @map("app_address")
+    message     String? @map("message")
+
+    app App @relation(fields: [appId], references: [id])
+    appId String @unique @map("app_id")
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("consent_screen")
+}
+
+model TokenAppMapping {
+    id String @id @default(cuid()) @map("id")
+
+    token String @map("token")
+    data Json @map("data") @default("{}")
+    app App @relation(fields: [appId], references: [id])
+    appId String @unique @map("app_id")
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("token_app_mapping")
+}
+
+
+enum APP_STATE {
+    ACTIVE
+    INACTIVE
+    DELETED
+}
