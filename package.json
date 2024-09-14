@@ -1,0 +1,12 @@
+{
+  "name": "onlyauth-backend",
+  "version": "1.0.0",
+  "description": "API server for only auth backend. ",
+  "main": "index.js",
+  "author": "hitenvats16",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0",
+    "prisma": "^5.19.1"
+  }
+}
