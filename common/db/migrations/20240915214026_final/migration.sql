@@ -79,9 +79,6 @@ CREATE UNIQUE INDEX "app_owner_id_key" ON "app"("owner_id");
 -- CreateIndex
 CREATE UNIQUE INDEX "consent_screen_app_id_key" ON "consent_screen"("app_id");
 
--- CreateIndex
-CREATE UNIQUE INDEX "token_app_mapping_app_id_key" ON "token_app_mapping"("app_id");
-
 -- AddForeignKey
 ALTER TABLE "app" ADD CONSTRAINT "app_owner_id_fkey" FOREIGN KEY ("owner_id") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

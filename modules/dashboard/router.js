@@ -1,4 +1,5 @@
 import { Router } from 'express'
+
 import DashbaordController from './controller.js'
 import UserMiddleware from '../user/midlleware.js'
 

@@ -6,6 +6,8 @@ import config from './common/config.js'
 
 import userRouter from './modules/user/router.js'
 import dashboardRouter from './modules/dashboard/router.js'
+import operationRouter from './modules/operations/router.js'
+import resourceRouter from './modules/resources/router.js'
 
 const app = e()
 
@@ -30,6 +32,9 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRouter)
 app.use('/dashboard', dashboardRouter)
+
+app.use('/o',operationRouter)
+app.use('/r',resourceRouter)
 
 app.listen(config.port, () => {
   console.log(`Server is running on port ${config.port}`)

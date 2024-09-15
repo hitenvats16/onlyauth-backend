@@ -100,6 +100,14 @@ export default class DashbaordController {
         .json({ error: error.message, code: codes.SCHEMA_ERROR })
     }
 
+    const application = await this.service.findApplication(user, id)
+
+    if (!application) {
+      return res
+        .status(404)
+        .json({ error: 'Application not found', code: codes.APPLICATION_NOT_FOUND })
+    }
+
     const payload = value
 
     logger.log('Updating application with payload', payload)
