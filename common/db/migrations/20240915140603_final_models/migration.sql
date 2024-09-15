@@ -39,9 +39,9 @@ CREATE TABLE "app" (
 CREATE TABLE "consent_screen" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "logo" TEXT NOT NULL,
+    "logo" TEXT,
     "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
+    "description" TEXT,
     "developer_email" TEXT,
     "app_address" TEXT NOT NULL,
     "message" TEXT,
@@ -68,9 +68,6 @@ CREATE TABLE "token_app_mapping" (
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "app_name_key" ON "app"("name");
-
--- CreateIndex
 CREATE UNIQUE INDEX "app_secret_key" ON "app"("secret");
 
 -- CreateIndex
@@ -78,9 +75,6 @@ CREATE UNIQUE INDEX "app_client_id_key" ON "app"("client_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "app_owner_id_key" ON "app"("owner_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "consent_screen_name_key" ON "consent_screen"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "consent_screen_app_id_key" ON "consent_screen"("app_id");

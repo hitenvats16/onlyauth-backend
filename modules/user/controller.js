@@ -2,7 +2,7 @@ import Joi from 'joi'
 
 import UserService from './service.js'
 import logger from '../../common/utils/logger.js'
-import codes from '../../common/codes.js'
+import codes from '../../common/constants/codes.js'
 
 export default class UserController {
   constructor() {

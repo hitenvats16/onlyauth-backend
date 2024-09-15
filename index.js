@@ -1,9 +1,11 @@
 import os from 'os'
 import e from 'express'
+import morgan from 'morgan'
 
 import config from './common/config.js'
+
 import userRouter from './modules/user/router.js'
-import morgan from 'morgan'
+import dashboardRouter from './modules/dashboard/router.js'
 
 const app = e()
 
@@ -27,6 +29,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', userRouter)
+app.use('/dashboard', dashboardRouter)
 
 app.listen(config.port, () => {
   console.log(`Server is running on port ${config.port}`)

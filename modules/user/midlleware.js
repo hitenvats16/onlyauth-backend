@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import config from '../../common/config.js'
 import logger from '../../common/utils/logger.js'
-import codes from '../../common/codes.js'
+import codes from '../../common/constants/codes.js'
 import UserService from './service.js'
 
 export default class UserMiddleware {
@@ -20,6 +20,11 @@ export default class UserMiddleware {
       const decoded = jwt.verify(token, config.jwt.secret)
 
       logger.log('Decoded token', decoded)
+
+      if(decoded.exp < Date.now() / 1000) {
+        res.status(401).json({ error: 'Token Expired', code: codes.TOKEN_EXPI })
+        return
+      }
 
       const user = await this.userService.findUserByEmail(decoded.email)
 

@@ -5,7 +5,7 @@ import db from '../../common/db/index.js'
 import config from '../../common/config.js'
 import logger from '../../common/utils/logger.js'
 import { ResponseError } from '../../common/errors.js'
-import codes from '../../common/codes.js'
+import codes from '../../common/constants/codes.js'
 
 const DEFAULT_KEY_LEN = 64
 
