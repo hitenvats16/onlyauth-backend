@@ -38,7 +38,7 @@ export default class UserController {
       const user = await this.userService.createUser(value)
       res.status(201).json(user)
     } catch (err) {
-      res.status(400).json({ error: err.message, error: err.code })
+      res.status(400).json({ error: err.message, code: err.code })
     }
   }
 
