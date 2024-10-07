@@ -43,7 +43,7 @@ model App {
     tokens        TokenAppMapping[]
 
     owner   User   @relation(fields: [ownerId], references: [id])
-    ownerId String @unique @map("owner_id")
+    ownerId String @map("owner_id")
 
     createdAt DateTime @default(now()) @map("created_at")
     updatedAt DateTime @updatedAt @map("updated_at")

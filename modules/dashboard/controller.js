@@ -123,7 +123,7 @@ export default class DashbaordController {
       name: app.name,
 
       secret: app.secret,
-      redriectUris: app.redirectUris,
+      redirectUris: app.redirectUris,
       origins: app.origins,
       allowedScopes: app.allowedScopes,
       clientId: app.clientId,
