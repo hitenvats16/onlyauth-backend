@@ -1,6 +1,7 @@
 import os from 'os'
 import e from 'express'
 import morgan from 'morgan'
+import cors from 'cors'
 
 import config from './common/config.js'
 
@@ -11,9 +12,11 @@ import resourceRouter from './modules/resources/router.js'
 
 const app = e()
 
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
+
+app.use(cors())
 
 app.use(e.json())
 
@@ -33,8 +36,8 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter)
 app.use('/dashboard', dashboardRouter)
 
-app.use('/o',operationRouter)
-app.use('/r',resourceRouter)
+app.use('/o', operationRouter)
+app.use('/r', resourceRouter)
 
 app.listen(config.port, () => {
   console.log(`Server is running on port ${config.port}`)

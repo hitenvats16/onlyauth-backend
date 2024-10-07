@@ -36,7 +36,16 @@ export default class UserController {
 
     try {
       const user = await this.userService.createUser(value)
-      res.status(201).json(user)
+      const accessToken = await this.userService.generateAccessToken(value)
+      console.log('Generated access token', accessToken)
+      res.status(201).json({
+        accessToken,
+        user: {
+          email: user.email,
+          fullName: user.fullName,
+          picture: user.picture,
+        },
+      } )
     } catch (err) {
       res.status(400).json({ error: err.message, code: err.code })
     }
@@ -59,11 +68,14 @@ export default class UserController {
       const accessToken = await this.userService.generateAccessToken(value)
       const user = await this.userService.findUserByEmail(value.email)
       logger.log('Generated access token', accessToken)
-      res.status(200).json({ accessToken, user: {
-        email: user.email,
-        fullName: user.fullName,
-        picture: user.picture
-      } })
+      res.status(200).json({
+        accessToken,
+        user: {
+          email: user.email,
+          fullName: user.fullName,
+          picture: user.picture,
+        },
+      })
     } catch (err) {
       res.status(400).json({ error: err.message, code: err.code })
     }

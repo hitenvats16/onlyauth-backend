@@ -20,4 +20,18 @@ export default class ResourceService {
       },
     })
   }
+
+  async signPayload(payload, secret) {
+    return jwt.sign(payload, secret, {
+      expiresIn: 60,
+    })
+  }
+
+  async findAppById(appId) {
+    return db.app.findUnique({
+      where: {
+        id: appId,
+      },
+    })
+  }
 }
